@@ -1,7 +1,8 @@
 <template>
     <div class="login_container">
-       
+         <vue-particle-line :hoverEffect="false" >
         <div class="login_box">
+            
             <div class="avatar_box">
                 <img src="../assets/logo.png" alt="">
             </div>
@@ -21,7 +22,7 @@
                 </el-form-item>
             </el-form>
         </div>
-        
+         </vue-particle-line >
     </div>
 </template>
 
@@ -53,7 +54,7 @@ import particles from 'particles.js'
                     this.$refs.loginFormRef.validate( async valid=>{
                         if(!valid) return;
                      const {data:res}=await  this.$http.post("login",this.loginForm)
-                      console.log(res)
+                      
                       if(res.meta.status !==200) return this.$message.error("登录失败")
                      this.$message.success("登录成功")
                      window.sessionStorage.setItem("token",res.data.token)
@@ -68,17 +69,21 @@ import particles from 'particles.js'
 
 <style lang="less" scoped>
 .login_container{
-    background-color: #2b4b6b;
+    background-color: #000;
+    // background-image: url("../assets/login-bg.jpg");
+    //  background-size: cover;
     height: 100%;
-     display: flex;
-        justify-content: center;
-        align-items: center;
     .login_box{
-        width:450px;
+       width:450px;
         height:300px;
         background-color: #fff;
         border-radius: 3px;
-        position: relative;
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        z-index:9999;
+        
         .avatar_box{
             height:130px;
             width:130px;
