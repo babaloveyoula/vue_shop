@@ -8,6 +8,7 @@ import axios from "axios"
 import animated from 'animate.css'
 import vueParticleLine from 'vue-particle-line'
 import 'vue-particle-line/dist/vue-particle-line.css'
+import TreeTable from 'vue-table-with-tree-grid'
 Vue.use(vueParticleLine)
 Vue.use(animated)
 axios.defaults.baseURL="https://www.liulongbin.top:8888/api/private/v1/"
@@ -17,7 +18,7 @@ axios.interceptors.request.use(config=>{
 })
 Vue.prototype.$http=axios
 Vue.config.productionTip = false
-
+Vue.component("tree-table", TreeTable)
 new Vue({
   router,
   render: h => h(App)
