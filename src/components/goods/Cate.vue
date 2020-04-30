@@ -26,8 +26,8 @@
                 </template>
 
                 <template slot="opt" slot-scope="scope">
-                   <el-button type="primary" size="mini" icon="el-icon-edit">编辑</el-button>
-                   <el-button type="danger" size="mini" icon="el-icon-delete">删除</el-button>
+                   <el-button type="primary" size="mini" icon="el-icon-edit" @click="showEditCateDialog(scope.row)">编辑</el-button>
+                   <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeCate(scope.row.cat_id)">删除</el-button>
                 </template>
             </tree-table>
             <el-pagination
@@ -66,6 +66,28 @@
                     <el-button type="primary" @click="addCate">确 定</el-button>
                 </span>
         </el-dialog>
+
+        <!-- 编辑分类对话框 -->
+        <el-dialog
+                title="编辑分类"
+                :visible.sync="editCateDialogVisible"
+                width="50%"
+                @close="editCateDialogClose"
+                >
+                 <el-form :model="editCateForm" :rules="addCateFormRules" ref="editCateFormRef" label-width="80px" >
+                    <el-form-item label="分类ID"   width="140px">
+                        <el-input  v-model="editCateForm.id" disabled ></el-input>
+                    </el-form-item>
+                    <el-form-item label="分类名称"  width="140px" prop="cat_name">
+                        <el-input  v-model="editCateForm.cat_name" ></el-input>
+                    </el-form-item>
+                     
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="editCateDialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="editCate">确 定</el-button>
+                </span>
+        </el-dialog>
     </div>
 </template>
 
@@ -101,6 +123,11 @@
                     checkStrictly:true
                 },
                 selectedKeys:[],
+                editCateDialogVisible:false,
+                editCateForm:{
+                    id:'',
+                    cat_name:''
+                },
                 // 表单验证规则
                 addCateFormRules:{
                     cat_name:[
@@ -118,7 +145,7 @@
            if(res.meta.status !==200){
                return this.$message.error(res.meta.msg)
            }
-           console.log(res)
+        
            this.cateList=res.data.result
            this.total=res.data.total
             },
@@ -169,7 +196,40 @@
             handleCurrentChange(newPage){
                 this.queryInfo.pagenum=newPage
                 this.getCateList()
-            }
+            },
+          async  removeCate(id){
+             const confirmResult= await this.$confirm('此操作将永久删除该分类, 是否继续?', '提示', {
+                                confirmButtonText: '确定',
+                                cancelButtonText: '取消',
+                                type: 'warning'
+                                }).catch(err=>err)
+            if(confirmResult !=="confirm") return this.$message.info("用户取消了操作")
+            const {data:res}=await  this.$http.delete(`categories/${id}`,id)
+            if(res.meta.status !==200) return this.message.error(res.meta.msg)
+            this.$message.success(res.meta.msg)
+            this.getCateList()
+            },
+            showEditCateDialog(cateinfo){
+                console.log(cateinfo)
+                this.editCateForm.id=cateinfo.cat_id
+                this.editCateForm.cat_name=cateinfo.cat_name
+                this.editCateDialogVisible=true
+            },
+            editCate(){
+                    this.$refs.editCateFormRef.validate( async valid=>{
+                        if(!valid) return 
+                 const {data:res}=await this.$http.put(`categories/${this.editCateForm.id}`,this.editCateForm)
+                 if(res.meta.status !==200) return this.$message.error(res.meta.msg)
+                 this.$message.success(res.meta.msg)
+                 this.getCateList()
+                 this.editCateDialogVisible=false
+                    })
+            },
+            editCateDialogClose(){
+                this.$refs.editCateFormRef.resetFields()
+        },
+        
+        
         }
     }
 </script>

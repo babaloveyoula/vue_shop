@@ -26,7 +26,13 @@ import {
     MessageBox ,
     Tag,
     Tree,
-    Cascader
+    Cascader,
+    Alert,
+    Tabs,
+    TabPane,
+    Loading,
+    Carousel,
+    CarouselItem
  } from 'element-ui'
 
 Vue.use(Button)
@@ -54,5 +60,11 @@ Vue.use(Dialog)
 Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(TabPane)
+Vue.use(Tabs)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 Vue.prototype.$message=Message
 Vue.prototype.$confirm=MessageBox.confirm 
+

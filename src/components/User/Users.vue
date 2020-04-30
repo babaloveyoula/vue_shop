@@ -55,8 +55,8 @@
                     <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser(scope.row)"></el-button>
                     <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser(scope.row.id)"></el-button>
                    
-                    <el-tooltip  effect="dark" content="分配权限" placement="top" :enterable="false">
-                        <el-button type="warning" icon="el-icon-setting" size="mini" ></el-button>
+                    <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
+                        <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row.id)" ></el-button>
                     </el-tooltip>
                 </template>
             </el-table-column>
@@ -272,6 +272,11 @@
                 this.$message.success(res.meta.msg)
                 this.getUserList();
       },
+       async setRole(id){
+           console.log(id)
+       const {data:res}=await  this.$http.put(`users/${id}/role`,{params:{rid:118}})
+       console.log(res)
+        }
 
 
 

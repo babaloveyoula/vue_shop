@@ -117,7 +117,8 @@
     }
 }
 .el-main{
-    background-color:#fff;
+    background-color:#eaedf1;
+   
 }
 .iconfont{
     margin-right: 10px;

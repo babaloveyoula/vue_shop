@@ -7,6 +7,7 @@ import Users from '@/components/User/Users'
 import Rights from "@/components/rights/Rights"
 import Roles from "@/components/roles/Roles"
 import Cate from "@/components/goods/Cate"
+import Params from "@/components/goods/Params"
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,11 +15,12 @@ const routes = [
   {path:"/login",component:Login},
   {path:"/home",redirect:"/welcome",component:Home,
     children:[
-    {path:'/welcome',component:Welcome},
+    {path:'/welcome',name:"welcome",component:Welcome},
     {path:"/users",component:Users},
     {path:"/rights",component:Rights},
     {path:"/roles",component:Roles},
-    {path:"/categories",component:Cate}
+    {path:"/categories",component:Cate},
+    {path:"/params",component:Params}
   ]},
   
 ]

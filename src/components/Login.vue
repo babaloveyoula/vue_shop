@@ -17,7 +17,7 @@
                      prefix-icon="iconfont icon-mimasuo" placeholder="请输入密码"></el-input>
                 </el-form-item>
                  <el-form-item class="btns" >
-                   <el-button type="primary" @click="login()">登录</el-button>
+                   <el-button type="primary" @click="login()" :loading="isLoading">登录</el-button>
                    <el-button type="info" @click="reserLoginFrom">重置</el-button>
                 </el-form-item>
             </el-form>
@@ -35,6 +35,7 @@ import particles from 'particles.js'
                     username:'admin',
                     password:'123456'
                 },
+                isLoading:false,
                 rules: {
                     username: [
                         { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -51,13 +52,18 @@ import particles from 'particles.js'
                   this.$refs.loginFormRef.resetFields();
                 },
                 login(){
+                    this.isLoading=true
                     this.$refs.loginFormRef.validate( async valid=>{
                         if(!valid) return;
                      const {data:res}=await  this.$http.post("login",this.loginForm)
                       
                       if(res.meta.status !==200) return this.$message.error("登录失败")
+                      this.isLoading=false
                      this.$message.success("登录成功")
+                     const loginDate=new Date().toLocaleString()
                      window.sessionStorage.setItem("token",res.data.token)
+                     window.sessionStorage.setItem("username",this.loginForm.username)
+                     window.localStorage.setItem("loginDate",loginDate)
                      this.$router.push("/home")
                     })
                 }

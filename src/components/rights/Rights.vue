@@ -56,6 +56,7 @@
         methods:{
             async getRightsList(){
           const {data:res}=await  this.$http.get(`rights/list`)
+          console.log(res)
             if(res.meta.status !==200) {
                 return this.$message.error(res.meta.msg)
             }
