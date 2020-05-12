@@ -11,8 +11,12 @@ import 'vue-particle-line/dist/vue-particle-line.css'
 import TreeTable from 'vue-table-with-tree-grid'
 import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.snow.css'
+import echarts from "echarts"
+import "../src/assets/china.js"
+
 Vue.use(vueParticleLine)
 Vue.use(animated)
+Vue.use(echarts)
 axios.defaults.baseURL="http://timemeetyou.com:8889/api/private/v1/"
 // http://timemeetyou.com:8889/api/private/v1/
 // https://www.liulongbin.top:8888/api/private/v1/
