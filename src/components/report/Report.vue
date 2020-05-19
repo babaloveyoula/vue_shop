@@ -1,71 +1,32 @@
 <template>
-    <div>
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-            <el-breadcrumb-item>商品列表</el-breadcrumb-item>
-        </el-breadcrumb>
-        <el-card>
-             <div id="main" style="width: 600px;height:400px;"></div>
-            </el-card>
-
-    </div>
+  <baidu-map
+    :center="center"
+    :zoom="zoom"
+    @ready="handler"
+    class="map"
+  ></baidu-map>
 </template>
-
 <script>
-import echarts from "echarts"
-import _ from "lodash"
-    export default {
-        data(){
-            return {
-                options: {
-        title: {
-          text: '用户来源'
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#E9EEF3'
-            }
-          }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        xAxis: [
-          {
-            boundaryGap: false
-          }
-        ],
-        yAxis: [
-          {
-            type: 'value'
-          }
-        ]
-      }
-            }
-        },
-      async  mounted(){
-            var myChart = echarts.init(document.getElementById('main'))
-     const {data:res}=await this.$http.get("reports/type/1")
-     if(res.meta.status !==200){
-         return this.$message.error("获取折线图数据失败")
-     }
-  const result=  _.merge(res.data,this.options)
-            
-         myChart.setOption(result);
-        },
-        created() {
-           
-        },
+export default {
+  data() {
+    return {
+      center: { lng: 0, lat: 0 },
+      zoom: 3
+    };
+  },
+  methods: {
+    handler({ BMap, map }) {
+      console.log(BMap, map);
+      this.center.lng = 106.684691;
+      this.center.lat = 35.54279;
+      this.zoom = 15;
     }
+  }
+};
 </script>
-
-<style lang="less" scoped>
-
+<style lang="less">
+.map {
+  width: 100%;
+  height: 100%;
+}
 </style>

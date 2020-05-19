@@ -13,6 +13,22 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.snow.css'
 import echarts from "echarts"
 import "../src/assets/china.js"
+import BaiduMap from 'vue-baidu-map';
+import Driver from "driver.js"
+import "driver.js/dist/driver.min.css"
+
+Vue.prototype.$driver = new Driver({
+  doneBtnText: '完成', // Text on the final button
+  closeBtnText: '关闭', // Text on the close button for this step
+  stageBackground: '#373d41', // Background color for the staged behind highlighted element
+  nextBtnText: '下一步', // Next button text for this step
+  prevBtnText: '上一步', // Previous button text for this step
+})
+
+Vue.use(BaiduMap, {
+      /* Visit http://lbsyun.baidu.com/apiconsole/key for details about app key. */
+      ak: 'QPvPuaiIK8QjGnV0Q2LrzqVk6KGtnbz5'
+})
 
 Vue.use(vueParticleLine)
 Vue.use(animated)

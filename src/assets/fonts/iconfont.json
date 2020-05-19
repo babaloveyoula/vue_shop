@@ -60,6 +60,13 @@
       "font_class": "mimasuo",
       "unicode": "e697",
       "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "13872290",
+      "name": "退出 ",
+      "font_class": "tuichu",
+      "unicode": "e651",
+      "unicode_decimal": 58961
     }
   ]
 }

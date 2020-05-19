@@ -2,15 +2,19 @@
   <el-container class="home-container">
     <el-header>
       <div>
-        <img src="../assets/logo.png" alt />
-        <span>电商后台管理系统</span>
+        <img id="logo" src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"  />
+        <span >电商后台管理系统</span>
       </div>
-      <el-button type="info" @click="logout">退出{{$route.path}}</el-button>
+      <el-tooltip  effect="dark" content="注销" placement="top-start" id="logout" >
+      <el-button type="text" @click="logout" class="iconfont icon-tuichu" size="mini"></el-button>
+    </el-tooltip>
+     
     </el-header>
     <el-container>
-      <el-aside :width="isCollapse? '64px':'200px'">
-        <div class="toggle-button" @click="toggleCollapse">|||</div>
+      <el-aside :width="isCollapse ? '64px' : '200px'">
+        <div class="toggle-button" @click="toggleCollapse" id="toggle">|||</div>
         <el-menu
+          id="menu"
           background-color="#333744"
           text-color="#fff"
           :unique-opened="true"
@@ -20,26 +24,30 @@
           :default-active="activePath"
           active-text-color="#409eff"
         >
-          <el-submenu :index="item.id+''" v-for="item in menuList" :key="item.id">
+          <el-submenu
+            :index="item.id + ''"
+            v-for="item in menuList"
+            :key="item.id"
+          >
             <template slot="title">
               <i :class="iconsObj[item.id]"></i>
-              <span>{{item.authName}}</span>
+              <span>{{ item.authName }}</span>
             </template>
             <el-menu-item
-              :index="'/'+subItem.path+''"
+              :index="'/' + subItem.path + ''"
               v-for="subItem in item.children"
               :key="subItem.id"
-              @click="saveNavState('/'+subItem.path)"
+              @click="saveNavState('/' + subItem.path)"
             >
               <template slot="title">
                 <i class="el-icon-menu"></i>
-                <span>{{subItem.authName}}</span>
+                <span>{{ subItem.authName }}</span>
               </template>
             </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main :class="[$route.path==='/welcome'?'bgc2':'bgc']">
+      <el-main :class="[$route.path === '/welcome' ? 'bgc2' : 'bgc']" id="mainInfo" >
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -47,6 +55,7 @@
 </template>
 
 <script>
+import driverStep from "@/untils/driver"
 export default {
   data() {
     return {
@@ -66,6 +75,9 @@ export default {
     this.getMenuList();
     this.activePath = window.sessionStorage.getItem("activePath");
   },
+  mounted() {
+    this.start()
+  },
   methods: {
     logout() {
       window.sessionStorage.clear();
@@ -83,6 +95,12 @@ export default {
     saveNavState(activePath) {
       window.sessionStorage.setItem("activePath", activePath);
       this.activePath = activePath;
+    },
+    start(){
+      this.$nextTick(() => {
+        this.$driver.defineSteps(driverStep);
+        this.$driver.start();
+      });
     }
   }
 };
@@ -108,7 +126,7 @@ export default {
     }
     img {
       width: 61px;
-      height: 56px;
+      height: 50px;
     }
   }
 }
@@ -121,10 +139,10 @@ export default {
 .el-main {
   background-color: #eaedf1;
 }
-.bgc{
+.bgc {
   background-color: #eaedf1;
 }
-.bgc2{
+.bgc2 {
   background-color: #404a59;
 }
 .iconfont {
