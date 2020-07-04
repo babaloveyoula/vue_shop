@@ -16,7 +16,9 @@ import "../src/assets/china.js"
 import BaiduMap from 'vue-baidu-map';
 import Driver from "driver.js"
 import "driver.js/dist/driver.min.css"
-
+import Nprogress from "nprogress"
+import "nprogress/nprogress.css"
+import Service from "./service/http.js"
 Vue.prototype.$driver = new Driver({
   doneBtnText: '完成', // Text on the final button
   closeBtnText: '关闭', // Text on the close button for this step
@@ -33,14 +35,9 @@ Vue.use(BaiduMap, {
 Vue.use(vueParticleLine)
 Vue.use(animated)
 Vue.use(echarts)
-axios.defaults.baseURL="http://timemeetyou.com:8889/api/private/v1/"
-// http://timemeetyou.com:8889/api/private/v1/
-// https://www.liulongbin.top:8888/api/private/v1/
-axios.interceptors.request.use(config=>{
-  config.headers.Authorization=window.sessionStorage.getItem("token")
-  return config
-},err=>Promise.reject(err))
-Vue.prototype.$http=axios
+
+
+Vue.prototype.$http=Service
 Vue.filter("dateFormat",function(originVal){
  const dt= new Date(originVal)
  const y=dt.getFullYear()

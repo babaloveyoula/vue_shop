@@ -17,6 +17,7 @@
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
     "lodash": "^4.17.15",
+    "nprogress": "^0.2.0",
     "particles.js": "^2.0.0",
     "v-charts": "^1.19.0",
     "vue": "^2.6.11",

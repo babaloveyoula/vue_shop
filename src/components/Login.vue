@@ -28,12 +28,14 @@
           </el-form-item>
         </el-form>
       </div>
+     
     </vue-particle-line>
   </div>
 </template>
 
 <script>
 import particles from "particles.js";
+import {login_new} from "@/service/api/api.js"
 export default {
   data() {
     return {
@@ -58,12 +60,12 @@ export default {
     reserLoginFrom() {
       this.$refs.loginFormRef.resetFields();
     },
+   
     login() {
-      this.isLoading = true;
+     console.log( login_new(this.loginForm))
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return;
-        const { data: res } = await this.$http.post("login", this.loginForm);
-
+        const { data: res } = await login_new(this.loginForm)
         if (res.meta.status !== 200) return this.$message.error("登录失败");
         this.isLoading = false;
         this.$message.success("登录成功");

@@ -40,7 +40,8 @@ import {
     UploUpload,
     Upload,
     Timeline,
-    TimelineItem
+    TimelineItem,
+    Notification
 
  } from 'element-ui'
 
@@ -83,4 +84,5 @@ Vue.use(Timeline)
 Vue.use(TimelineItem)
 Vue.prototype.$message=Message
 Vue.prototype.$confirm=MessageBox.confirm 
+Vue.prototype.$notify=Notification
 

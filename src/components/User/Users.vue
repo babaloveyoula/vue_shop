@@ -138,6 +138,7 @@
 </template>
 
 <script>
+import {getUserList,userStateChanged} from "@/service/api/api.js"
     export default {
         data(){
             var checkMail=(rulr,value,cb)=>{
@@ -197,7 +198,8 @@
         },
         methods:{
           async  getUserList(){
-             const {data:res}=await this.$http.get("users",{params:this.queryInfo})
+             const {data:res}=await getUserList(this.queryInfo)
+             console.log("hahha")
              if(res.meta.status !== 200) return this.$message.error("获取用户列表失败")
              this.userList=res.data.users
              this.total=res.data.total
@@ -211,7 +213,8 @@
                 this.getUserList()
             },
           async  userStateChanged(userinfo){
-              const {data:res}=await this.$http.put(`users/${userinfo.id}/state/${userinfo.mg_state}`)
+              const {data:res}=await userStateChanged(`users/${userinfo.id}/state/${userinfo.mg_state}`)
+              console.log(111)
               if(res.meta.status !==200) {
                   userinof.mg_state=!userinfo.mg_state
                   return this.$message.error("更新用户状态失败")
