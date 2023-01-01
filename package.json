@@ -15,7 +15,7 @@
     "echarts": "^4.7.0",
     "element-ui": "^2.4.5",
     "less": "^3.11.1",
-    "less-loader": "^5.0.0",
+    "less-loader": "^11.1.0",
     "lodash": "^4.17.15",
     "nprogress": "^0.2.0",
     "particles.js": "^2.0.0",
@@ -29,10 +29,10 @@
     "vue-table-with-tree-grid": "^0.2.4"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.3.0",
-    "@vue/cli-plugin-eslint": "^4.3.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
     "@vue/cli-plugin-router": "^4.3.0",
-    "@vue/cli-service": "^4.3.0",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-standard": "^5.1.2",
     "babel-eslint": "^10.1.0",
     "babel-plugin-component": "^1.1.1",
